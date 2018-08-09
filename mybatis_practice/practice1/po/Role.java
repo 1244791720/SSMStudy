@@ -33,6 +33,23 @@ public class Role {
 	public String toString() {
 		return "Role [id=" + id + ", roleName=" + roleName + ", note=" + note + "]";
 	}
+
+	public Role(String roleName, String note) {
+		super();
+		this.roleName = roleName;
+		this.note = note;
+	}
+
+	public Role(Long id, String roleName, String note) {
+		super();
+		this.id = id;
+		this.roleName = roleName;
+		this.note = note;
+	}
+	
+	public Role() {
+		super();
+	}
 	
 	
 	

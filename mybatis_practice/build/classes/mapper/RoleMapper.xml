@@ -6,6 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getRole" parameterType="long" resultType="role">
 		select id, roleName, note from role where id = #{id}
 	</select>
+	<insert id="insertRole">
+		insert into role(id, roleName, note) values(#{id}, #{roleName}, #{note})
+	</insert>
+	<select id="findByRowBounds" resultType="role">
+		select id, roleName, note from role where roleName = #{roleName}
+	</select>
 </mapper>
 
 	
