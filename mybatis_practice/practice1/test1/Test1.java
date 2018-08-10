@@ -58,5 +58,32 @@ public class Test1 {
 		sqlSession.close();
 	}
 	
+	@Test
+	public void testFindByRowBoundsIf() {
+		SqlSession sqlSession = DatabaseConnectionUtil.OpenSqlSession("test2.xml");
+		RoleMapper rm = sqlSession.getMapper(RoleMapper.class);
+		String roleName = "手";
+		List<Role> list = rm.findByNameIf(roleName);
+		System.out.println(list);
+	}
 	
+	@Test
+	public void testFindByNameAndNote() {
+		SqlSession sqlSession = DatabaseConnectionUtil.OpenSqlSession("test2.xml");
+		RoleMapper rm = sqlSession.getMapper(RoleMapper.class);
+		Role role1 = new Role("盖","人头狗"); // note符合
+		Role role2 = new Role("亚瑟",""); //name符合
+		Role role3 = new Role("",""); //otherwise
+		List<Role> list = rm.findByNameAndNote(role3);
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testfindWhere() {
+		SqlSession sqlSession = DatabaseConnectionUtil.OpenSqlSession("test2.xml");
+		RoleMapper rm = sqlSession.getMapper(RoleMapper.class);
+		Role role1 = new Role("盖","人头狗"); // note符合
+		List<Role> list = rm.findByNameAndNote(role1);
+		System.out.println(list);
+	}
 }

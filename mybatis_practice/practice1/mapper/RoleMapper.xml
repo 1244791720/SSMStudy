@@ -12,6 +12,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findByRowBounds" resultType="role">
 		select id, roleName, note from role where roleName = #{roleName}
 	</select>
+	<select id="findByNameIf" resultType="role">
+		select id, roleName, note from role where 1=1
+		<if test="roleName != null and roleName != ''">
+			and roleName like concat('%', #{roleName}, '%')
+		</if>
+	</select>
+	<select id="findByNameAndNote" resultType="role" parameterType="role">
+		select note, roleName, id from role 
+		where 1=1
+		<choose>
+			<when test="note != null and note != ''">
+				and note = #{note}
+			</when>
+			<when test="roleName != null and roleName != ''">
+				and roleName = #{roleName}
+			</when>
+			<otherwise>
+				and note is not null
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findWhere" resultType="role">
+		select id, roleName, note from role 
+		<where>
+			<if test ="roleName != null and roleName != ''">
+				and roleName like concat('%', #{roleName}, '%')
+			</if>
+			<if test="note != null and note !=''">
+				and note like concat ('%', #{note}m '%')
+			</if>
+		</where>
+	</select>
+	<select id="findTrim" resultType="role">
+		select id, roleName, note from role 
+		<trim prefix="where" prefixOverrides="and">
+			<if test ="roleName != null and roleName != ''">
+				and roleName like concat('%', #{roleName}, '%')
+			</if>
+			<if test="note != null and note !=''">
+				and note like concat ('%', #{note}m '%')
+			</if>
+		</trim>
+	</select>
 </mapper>
 
 	
